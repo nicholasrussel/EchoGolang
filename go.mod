@@ -1,4 +1,4 @@
-module restapi
+module EchoGolang
 
 go 1.17
 

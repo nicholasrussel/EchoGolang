@@ -8,13 +8,8 @@ import (
 var DB *gorm.DB
 
 func ConnectDB() {
-	host := "localhost"
-	port := "3306"
-	dbname := "blogspot"
-	username := "root"
-	password := ""
 
-	dsn := username + ":" + password + "@tcp(" + host + ":" + port + ")/" + dbname + "?charset=utf8&parseTime=true&loc=Local"
+	dsn := "root:@tcp(localhost:3306)/blogspot"
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{SkipDefaultTransaction: true})
 	if err != nil {

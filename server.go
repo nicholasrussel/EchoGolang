@@ -1,13 +1,10 @@
 package main
 
 import (
+	"EchoGolang/config"
+	"EchoGolang/model"
 	"fmt"
-	"io"
 	"net/http"
-	"os"
-	"restapi/config"
-	"restapi/model"
-	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -21,28 +18,6 @@ func main() {
 		contentType := c.Request().Header.Get("Content-type")
 		if contentType == "application/json" {
 			fmt.Println("Request dari json")
-		} else if strings.Contains(contentType, "multipart/form-data") || contentType == "application/x-www-form-urlencoded" {
-			file, err := c.FormFile("ktp")
-			if err != nil {
-				fmt.Println("Ktp kosong")
-			} else {
-				src, err := file.Open()
-				if err != nil {
-					return err
-				}
-				defer src.Close()
-				dst, err := os.Create(file.Filename)
-				if err != nil {
-					return err
-				}
-				defer dst.Close()
-				if _, err = io.Copy(dst, src); err != nil {
-					return err
-				}
-
-				user.Ktp = file.Filename
-				fmt.Println("Ada file, akan disimpan")
-			}
 		}
 		response := new(Response)
 		if user.CreateUser() != nil { // method create user
@@ -99,7 +74,7 @@ func main() {
 		return c.JSON(http.StatusOK, response)
 	})
 
-	route.Start(":9000")
+	route.Start(":8000")
 }
 
 type Response struct {

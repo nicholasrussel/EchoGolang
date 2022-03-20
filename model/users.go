@@ -1,6 +1,6 @@
 package model
 
-import "restapi/config"
+import "EchoGolang/config"
 
 type Users struct {
 	Email       string `json:"email" form:"email" gorm:"primaryKey"`
